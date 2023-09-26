@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'AirbnbCereal-Blk';
+    src: url('./font/AirbnbCereal_W_Blk.otf')format('otf');
+    }
+    
+body {
+    overflow-x: hidden;
+    font-family: 'AirbnbCereal-Blk', Helvetica;
+}
