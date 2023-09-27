@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 
 const Home = () => {
   useEffect(() => {
+    // SIDE BAR NAME
     const fullname = localStorage.getItem("fullname");
-
     const sidebarName = document.getElementById('sidebar-name');
     sidebarName.innerHTML = fullname;
 
+    // LOGOUT BUTTON
     const btnLogout = document.getElementById('btn-logout');
     btnLogout.addEventListener('click', (e) => {
       e.preventDefault();
@@ -14,19 +15,19 @@ const Home = () => {
       window.location.href = "./login.html";
     });
 
+    // TOGGLE BUTTON
     const menuToggle = document.getElementById('menu-toggle');
     const wrapper = document.getElementById('wrapper');
-
     menuToggle.addEventListener('click', (e) => {
       e.preventDefault();
       wrapper.classList.toggle('toggled');
     });
 
+    // ADD BOOK VALIDATION
     const title = document.getElementById('input-title');
     const url = document.getElementById('input-url');
     const desc = document.getElementById('input-desc');
     const save = document.getElementById('btn-save');
-
     save.addEventListener('click', (e) => {
       e.preventDefault();
       if (url.value === "" || desc.value === "" || title.value === "") {
@@ -36,6 +37,7 @@ const Home = () => {
         window.location.href = './home.html';
       }
     });
+
   }, []);
 
   return (
@@ -74,7 +76,8 @@ const Home = () => {
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul className="navbar-nav mr-auto">
                                     <li className="nav-item">
-                                        <a href="#" className="btn btn-default" id="menu-toggle"><i className="fa fa-bars"></i></a>
+                                        {/* <a href="#" className="btn btn-default" id="menu-toggle"><i className="fa fa-bars">t</i></a> */}
+                                        <a href="#" className="btn btn-default" id="menu-toggle">MENU</a>
                                     </li>
                                     <li className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
