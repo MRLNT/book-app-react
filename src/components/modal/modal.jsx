@@ -3,20 +3,20 @@ import React, { useEffect } from 'react';
 const Modal = () => {
     useEffect(() => {
 
-    // ADD BOOK VALIDATION
-    const title = document.getElementById('input-title');
-    const url = document.getElementById('input-url');
-    const desc = document.getElementById('input-desc');
-    const save = document.getElementById('btn-save');
-    save.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (url.value === "" || desc.value === "" || title.value === "") {
-        alert("Form tidak boleh kosong");
-        } else {
-        alert("Sukses tambah buku");
-        window.location.href = './home.html';
-        }
-    });
+    // // ADD BOOK VALIDATION
+    // const title = document.getElementById('input-title');
+    // const url = document.getElementById('input-url');
+    // const desc = document.getElementById('input-desc');
+    // const save = document.getElementById('btn-save');
+    // save.addEventListener('click', (e) => {
+    //     e.preventDefault();
+    //     if (url.value === "" || desc.value === "" || title.value === "") {
+    //     alert("Form tidak boleh kosong");
+    //     } else {
+    //     alert("Sukses tambah buku");
+    //     window.location.href = './home.html';
+    //     }
+    // });
 
     }, []);
   return (
