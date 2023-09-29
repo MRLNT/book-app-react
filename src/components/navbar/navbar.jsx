@@ -48,7 +48,7 @@ const Navbar = () => {
                                 <li className="nav-item">
                                     <div className="form">
                                         <i className="fa fa-search"></i>
-                                        <input type="text" className="form-control form-input" placeholder="Search book"/>
+                                        <input type="text" className="form-control form-input" id='serach-bar' placeholder="Search book"/>
                                     </div>
                                 </li>
                                 <li className="nav-item px-5">

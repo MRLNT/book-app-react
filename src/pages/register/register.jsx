@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
 import './register.css';
 import { Link } from 'react-router-dom';
+import { addUser } from '../../services/user';
 
 const Register = () => {
   const [username, setUsername] = useState('');
-  const [fullname, setFullname] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleRegister = () => {
-    if (password === '') {
-      alert('Password cannot be empty');
-    } else if (email === '') {
-      alert('Email cannot be empty');
-    } else if (username === '') {
-      alert('Username cannot be empty');
-    } else if (fullname === '') {
-      alert('Full Name cannot be empty');
-    } else {
-      alert('Success register');
-      localStorage.setItem('username', username);
-      localStorage.setItem('fullname', fullname);
-      localStorage.setItem('email', email);
-      localStorage.setItem('password', password);
-      window.location.href = './login.html';
+  const handleRegister = async (e) => {
+    // console.log(username);
+    // console.log(password);
+    try {
+      const data = {
+        username,
+        password,
+      };
+      console.log(data, "data register");
+      const res = await addUser(data);
+      console.log(res);
+      
+      setPassword('');
+      setUsername('');
+    } catch (error) {
+      console.log(error.reponse)
     }
+    
+    
   };
 
   return (
@@ -59,26 +60,7 @@ const Register = () => {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-          <div className="form-field">
-            <label className="form-field-label">Full Name</label>
-            <input
-              type="text"
-              className="form-field-input"
-              placeholder="Masukkan Nama Lengkap"
-              value={fullname}
-              onChange={(e) => setFullname(e.target.value)}
-            />
-          </div>
-          <div className="form-field">
-            <label className="form-field-label">Email Address</label>
-            <input
-              type="email"
-              className="form-field-input"
-              placeholder="Masukkan Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+
           <div className="form-field">
             <label className="form-field-label">Password</label>
             <input

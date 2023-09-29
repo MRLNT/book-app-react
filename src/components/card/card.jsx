@@ -32,8 +32,8 @@ const Card = () => {
                             <div className="card-body">
                                 <h5 className="card-title text-center">{book.title}</h5>
                                 <h5 className="card-title text-center">{book.year}</h5>
-                                <h5 className="card-title text-center">{book.author.name}</h5>
-                                <h5 className="card-title text-center">{book.publisher.name}</h5>
+                                {/* <h5 className="card-title text-center">{book.author.name}</h5>
+                                <h5 className="card-title text-center">{book.publisher.name}</h5> */}
                                 <div className="action d-flex justify-content-between">
                                     <Link to={`/books/${book.id}`}>See Detail</Link>
                                     <Link to={`/books/${book.id}`}>Update Data</Link>

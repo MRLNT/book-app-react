@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
 import './login.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = () => {
-    if (email === '') {
-      alert('Email cannot be empty');
-    } else if (password === '') {
-      alert('Password cannot be empty');
-    } else {
+    
+
+      console.log(email);
+      console.log(password);
+
+      if (email === '') {
+        alert('Email cannot be empty');
+      } else if (password === '') {
+        alert('Password cannot be empty');
+      } else {
 
       const storedEmail = localStorage.getItem('email');
       const storedPassword = localStorage.getItem('password');
@@ -19,11 +25,12 @@ const Login = () => {
       if (email === storedEmail && password === storedPassword) {
         alert('Success login');
 
-        window.location.href = './home.html';
+        navigate('./');
       } else {
         alert('Incorrect email or password');
       }
-    }
+      
+       };
   };
 
   return (

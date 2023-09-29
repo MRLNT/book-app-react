@@ -1,12 +1,47 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { getBooks, getBooksById } from '../../services/book';
+import { useEffect } from 'react';
 
 const Detail = () => {
+    const [data, setData] = useState(null);
+    const { id } = useParams();
+
+    const getDataById = useCallback(async () => {
+        try {
+            const response = await getBooksById(id);
+            localStorage.setItem("idNya", id);
+            const idnya = localStorage.getItem("idNya");
+            console.log(idnya);
+
+            const dataNya = [];
+            for (let i = 0; i < response.data.data.length; i++) {
+                if (response.data.data[i].id == idnya) {
+                    dataNya.push(response.data.data[i]);
+                }
+                
+            }
+            console.log(dataNya);
+            
+            // console.log(response.data.data[3]);
+            // console.log(response.data.data[0].id);
+            
+            // setData(response.data[0]);
+            setData(dataNya);
+        } catch (error) {
+            console.log(error);
+        }
+    }, [id]);
+
+    useEffect(() => {
+        getDataById();
+    }, [getDataById]);
+
   return (
     <div>
         <div>
         <img
-            src="./img/covernya.png"
+            src="../img/covernya.png"
             className="img-fluid"
             alt="Responsive image"
             style={{
@@ -20,7 +55,7 @@ const Detail = () => {
         </div>
 
         <div className="position-absolute top-0 start-0 p-5">
-        <Link to="/home" className="text-decoration-none text-black">
+        <Link to="/" className="text-decoration-none text-black">
             <button type="button" className="btn btn-light btn-lg">
                 <i className="fa fa-arrow-left"></i>
             </button>
@@ -38,8 +73,9 @@ const Detail = () => {
                     <div className="row">
                         <div className="col-8">
                             <h3><span className="badge text-bg-warning text-white rounded-pill">Novel</span></h3>
-                            <h1 className="fw-bold">DILANDA 1990</h1>
-                            <h4>30 Juni 2019</h4>
+                            {/* <h1 className="fw-bold">DILANDA 1990</h1> */}
+                            <h1 className="fw-bold">{data ? data[0].title : ''}</h1>
+                            <h4>{data ? data[0].year : ''}</h4>
                         </div>
                         <div className="col-4 text-success fw-bold p-5">
                             Available
@@ -47,13 +83,14 @@ const Detail = () => {
                     </div>
                 </div>
                 <div className="col-md-3">
-                    <img src="./img/booknya.png" alt="bukunya" style={{ marginTop: '-30vh' }} />
+                    <img src="../img/booknya.png" alt="bukunya" style={{ marginTop: '-30vh' }} />
                 </div>
             </div>
             <div className="row mt-2">
                 <div className="row">
                     <div className="col-8">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum quisquam ex labore doloremque eum sint est repellendus iure provident, id quidem itaque minima, dolores incidunt enim numquam atque minus cum, architecto cupiditate deserunt? Saepe totam dolorum pariatur optio, praesentium adipisci expedita recusandae aut culpa necessitatibus dolore enim eveniet placeat labore temporibus iste fugit atque fugiat autem quaerat animi cupiditate, officiis aperiam maiores! Fuga voluptate distinctio minus, suscipit tempora deserunt doloremque quaerat vitae eum pariatur facere harum eligendi? Impedit possimus cupiditate dolor perferendis et quidem doloribus mollitia molestiae animi esse quia doloremque laborum deleniti nam porro, eveniet expedita molestias reiciendis voluptatem.</p>
+                        <p>Pengarang : {data ? data[0].author.name : ''}</p>
+                        <p>Penerbit : {data ? data[0].publisher.name : ''}</p>
                     </div>
                     <div className="col-2"></div>
                     <div className="col-2 pt-5 mt-5">
