@@ -15,15 +15,23 @@ const Modal = () => {
                 return;
             }
 
+            // const data = {
+            //     title: judul,
+            //     year: tahunTerbit,
+            //     author: {
+            //         name: namaPengarang,
+            //     },
+            //     publisher: {
+            //         name: namaPenerbit,
+            //     },
+            // };
+            // DENGAN CATATAN HARUS SAMA DENGAN DATA DI BACK END
             const data = {
-                title: judul,
-                year: tahunTerbit,
-                author: {
-                    name: namaPengarang,
-                },
-                publisher: {
-                    name: namaPenerbit,
-                },
+                judul,
+                tahunTerbit,
+                namaPengarang,
+                namaPenerbit,
+                
             };
             console.log(data);
 

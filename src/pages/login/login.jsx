@@ -1,36 +1,35 @@
 import React, { useState } from 'react';
 import './login.css'
 import { Link, useNavigate } from 'react-router-dom';
+import { loginUser } from '../../services/user';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    
-
-      console.log(email);
-      console.log(password);
-
-      if (email === '') {
-        alert('Email cannot be empty');
-      } else if (password === '') {
-        alert('Password cannot be empty');
-      } else {
-
-      const storedEmail = localStorage.getItem('email');
-      const storedPassword = localStorage.getItem('password');
-
-      if (email === storedEmail && password === storedPassword) {
-        alert('Success login');
-
-        navigate('./');
-      } else {
-        alert('Incorrect email or password');
-      }
+  const handleLogin = async (e) => {
+      //  VALIDASI DISINI
       
-       };
+      try {
+        const data = {
+          name,
+          password,
+        };
+        console.log(data, "data login");
+        const res = await loginUser(data);
+        console.log(res);
+        if (res.status === 200) {
+          setPassword('');
+          setName('');
+          alert("sukses login user")
+          navigate('../')
+        } else {
+          alert("gagal login user")
+        }
+      } catch (error) {
+        console.log(error.response)
+      }
   };
 
   return (
@@ -63,8 +62,8 @@ const Login = () => {
                 type="email"
                 className="form-field-input"
                 placeholder="Masukkan Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 

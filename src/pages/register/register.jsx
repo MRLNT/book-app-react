@@ -4,23 +4,29 @@ import { Link } from 'react-router-dom';
 import { addUser } from '../../services/user';
 
 const Register = () => {
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-
+// VALIDASI DISINI
   const handleRegister = async (e) => {
     // console.log(username);
     // console.log(password);
     try {
       const data = {
-        username,
+        name,
         password,
       };
       console.log(data, "data register");
       const res = await addUser(data);
       console.log(res);
+      if (res.status === 201) {
+        setPassword('');
+        setName('');
+        alert("sukses tambah user")
+      } else {
+        alert("gagal tambah user")
+      }
       
-      setPassword('');
-      setUsername('');
+      
     } catch (error) {
       console.log(error.reponse)
     }
@@ -56,8 +62,8 @@ const Register = () => {
               type="text"
               className="form-field-input"
               placeholder="Masukkan Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 

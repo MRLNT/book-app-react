@@ -24,8 +24,8 @@ const Navbar = () => {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav mr-auto">
                                 <li className="nav-item">
-                                    {/* <a href="#" className="btn btn-default" id="menu-toggle"><i className="fa fa-bars">r</i></a> */}
-                                    <a href="#" className="btn btn-default" id="menu-toggle">MENU</a>
+                                    <a href="#" className="btn btn-default" id="menu-toggle"><i className="fa fa-bars"> </i></a>
+                                    {/* <a href="#" className="btn btn-default" id="menu-toggle">MENU</a> */}
                                 </li>
                                 <li className="nav-item dropdown">
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

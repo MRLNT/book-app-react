@@ -25,13 +25,17 @@ const Card = () => {
         <div className="row">
             {data && data.data.map((book, index) => (
                 <div className="col-md-4 mb-4" key={index}>
-                    <a href="./detail.html" className="text-decoration-none">
+                    <a href={`/books/${book.id}`} className="text-decoration-none">
                         <div className="card">
                             {/* <img src={`./img/${book.image}`} className="card-img-top" alt={book.title}/> */}
-                            <img src="./img/dilan.png" className="card-img-top" alt="..."/>
+                            {/* <img src="./img/dilan.png" className="card-img-top" alt="..."/> */}
+                            
+                            <img src={index === 5 ? './img/perahu.jpg' : './img/dilan.png'} className="card-img-top" alt="..." />
+                            
                             <div className="card-body">
                                 <h5 className="card-title text-center">{book.title}</h5>
                                 <h5 className="card-title text-center">{book.year}</h5>
+                                {/* <h3>{index}</h3> */}
                                 {/* <h5 className="card-title text-center">{book.author.name}</h5>
                                 <h5 className="card-title text-center">{book.publisher.name}</h5> */}
                                 <div className="action d-flex justify-content-between">
