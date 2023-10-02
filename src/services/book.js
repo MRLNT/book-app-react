@@ -44,3 +44,14 @@ export const addBooks = async (data) => {
       console.log(error);
     }
   };
+
+// UPDATE BOOK
+export const updateBook = async (id, data) => {
+    try {
+        const url = `${VITE_URL_DEV}/books/${id}`;
+        const response = await fetchApi({ url, method: "PUT", data });
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}

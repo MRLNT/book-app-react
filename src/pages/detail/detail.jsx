@@ -1,33 +1,27 @@
 import React, { useCallback, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { getBooks, getBooksById } from '../../services/book';
+import { getBooksById, updateBook } from '../../services/book';
 import { useEffect } from 'react';
 
 const Detail = () => {
     const [data, setData] = useState(null);
     const { id } = useParams();
+    var judulBawaan;
 
     const getDataById = useCallback(async () => {
         try {
             const response = await getBooksById(id);
             localStorage.setItem("idNya", id);
             const idnya = localStorage.getItem("idNya");
-            console.log(idnya);
 
             const dataNya = [];
             for (let i = 0; i < response.data.data.length; i++) {
                 if (response.data.data[i].id == idnya) {
                     dataNya.push(response.data.data[i]);
                 }
-                
             }
-            console.log(dataNya);
-            
-            // console.log(response.data.data[3]);
-            // console.log(response.data.data[0].id);
-            
-            // setData(response.data[0]);
             setData(dataNya);
+            judulBawaan = dataNya[0].title;
         } catch (error) {
             console.log(error);
         }
@@ -36,6 +30,48 @@ const Detail = () => {
     useEffect(() => {
         getDataById();
     }, [getDataById]);
+
+    
+    const [judul, setJudul] = useState('');
+    const [tahunTerbit, setTahunTerbit] = useState('');
+    const [namaPengarang, setNamaPengarang] = useState('');
+    const [namaPenerbit, setNamaPenerbit] = useState('');
+    
+
+    const handleSaveClick = async () => {
+        try {
+            console.log(judul);
+            console.log(tahunTerbit);
+            console.log(namaPengarang);
+            console.log(namaPenerbit);
+            if (judul === "" || tahunTerbit === "" || namaPengarang === "" || namaPenerbit === "") {
+                alert("Form cannot be empty");
+                return;
+            }
+            const data = {
+                judul,
+                tahunTerbit,
+                namaPengarang,
+                namaPenerbit,
+            };
+            console.log(data);
+
+            const response = await updateBook(id, data);
+            console.log(response);
+
+            if (response.status === 200) {
+                alert("Book updated successfully");
+                setJudul('');
+                setTahunTerbit('');
+                setNamaPengarang('');
+                setNamaPenerbit('');
+            } else {
+                alert("Failed to update book");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
   return (
     <div>
@@ -73,7 +109,6 @@ const Detail = () => {
                     <div className="row">
                         <div className="col-8">
                             <h3><span className="badge text-bg-warning text-white rounded-pill">Novel</span></h3>
-                            {/* <h1 className="fw-bold">DILANDA 1990</h1> */}
                             <h1 className="fw-bold">{data ? data[0].title : ''}</h1>
                             <h4>{data ? data[0].year : ''}</h4>
                         </div>
@@ -109,40 +144,51 @@ const Detail = () => {
                     </div>
                     <div className="modal-body">
                         <form>
-                            <div className="mb-3">
-                                <div className="row">
-                                    <div className="col-5">
-                                        <label htmlFor="input-url" className="form-label">Url Image</label>
-                                    </div>
-                                    <div className="col-7">
-                                        <input type="text" className="form-control" id="input-url" placeholder="http://gambar.com.com/dilanda.png"/>
-                                    </div>
+                        <div className="mb-3">
+                            <div className="row">
+                                <div className="col-5">
+                                    <label htmlFor="input-judul" className="form-label">Judul</label>
+                                </div>
+                                <div className="col-7">
+                                    <input type="text" className="form-control" id="input-judul" name="judul" placeholder={data ? data[0].title : ''} value={judul} onChange={(e) => setJudul(e.target.value)} />
                                 </div>
                             </div>
-                            <div className="mb-3">
-                                <div className="row">
-                                    <div className="col-5">
-                                        <label htmlFor="input-title" className="form-label">Title</label>
-                                    </div>
-                                    <div className="col-7">
-                                        <input type="text" className="form-control" id="input-title" placeholder="DILANDA 1990"/>
-                                    </div>
+                        </div>
+                        <div className="mb-3">
+                            <div className="row">
+                                <div className="col-5">
+                                    <label htmlFor="input-tahun" className="form-label">Tahun Terbit</label>
+                                </div>
+                                <div className="col-7">
+                                    <input type="text" className="form-control" id="input-tahun" name="tahunTerbit" placeholder={data ? data[0].year : ''} value={tahunTerbit} onChange={(e) => setTahunTerbit(e.target.value)} />
                                 </div>
                             </div>
-                            <div className="mb-3">
-                                <div className="row">
-                                    <div className="col-5">
-                                        <label htmlFor="input-desc" className="form-label">Description</label>
-                                    </div>
-                                    <div className="col-7">
-                                        <textarea className="form-control" id="input-desc" placeholder="Lorem ipsum"></textarea>
-                                    </div>
+                        </div>
+                        <div className="mb-3">
+                            <div className="row">
+                                <div className="col-5">
+                                    <label htmlFor="input-pengarang" className="form-label">Nama Pengarang</label>
+                                </div>
+                                <div className="col-7">
+                                    <input type="text" className="form-control" id="input-pengarang" placeholder={data ? data[0].author.name : ''} name="namaPengarang" value={namaPengarang} onChange={(e) => setNamaPengarang(e.target.value)} />
                                 </div>
                             </div>
+                        </div>
+                        <div className="mb-3">
+                            <div className="row">
+                                <div className="col-5">
+                                    <label htmlFor="input-penerbit" className="form-label">Nama Penerbit</label>
+                                </div>
+                                <div className="col-7">
+                                    <input type="text" className="form-control" id="input-penerbit" placeholder={data ? data[0].publisher.name : ''} name="namaPenerbit" value={namaPenerbit} onChange={(e) => setNamaPenerbit(e.target.value)} />
+                                </div>
+                            </div>
+                        </div>
+
                         </form>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-warning text-white fw-bold">Save</button>
+                        <button type="button" className="btn btn-warning text-white fw-bold" id="btn-save" onClick={handleSaveClick}>Save</button>
                     </div>
                 </div>
             </div>
